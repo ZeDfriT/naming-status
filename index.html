@@ -5,34 +5,61 @@
   <title>Service Desk Naming</title>
 </head>
 
-<body style="font-family: Arial; background:#0f172a; color:#e2e8f0; padding:40px;">
+<body style="margin:0; font-family: Arial; background:#0f172a; color:#e2e8f0;">
 
-<h1>🖥️ Naming Service</h1>
+<div style="max-width:900px; margin:auto; padding:40px;">
 
-<div id="content">Cargando datos...</div>
+  <!-- HEADER -->
+  <div style="display:flex; align-items:center; gap:15px;">
+    <img src="https://i.imgur.com/m61YSju.png" width="50">
+    <h1 style="margin:0;">Naming Service</h1>
+  </div>
+
+  <div id="content" style="margin-top:30px;">
+    Cargando datos...
+  </div>
+
+</div>
 
 <script>
-fetch("https://raw.githubusercontent.com/ZeDfriT/naming-status/main/status.json")
-.then(r => r.json())
-.then(d => {
-  document.getElementById("content").innerHTML = `
-    <div style="margin-top:20px;">
-      <h2>📍 Rosario</h2>
-      <p>Último: <b>${d.rosario.ultimo}</b></p>
-      <p>Próximo: <b>${d.rosario.siguiente}</b></p>
-    </div>
+function loadData() {
+  fetch("https://raw.githubusercontent.com/ZeDfriT/naming-status/main/status.json")
+  .then(r => r.json())
+  .then(d => {
 
-    <div style="margin-top:20px;">
-      <h2>📍 Buenos Aires</h2>
-      <p>Último: <b>${d.buenos_aires.ultimo}</b></p>
-      <p>Próximo: <b>${d.buenos_aires.siguiente}</b></p>
-    </div>
+    document.getElementById("content").innerHTML = `
 
-    <div style="margin-top:40px; font-size:12px; opacity:0.6;">
-      Última actualización: ${d.updated}
-    </div>
-  `;
-});
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+
+        <!-- ROSARIO -->
+        <div style="background:#1e293b; padding:20px; border-radius:12px;">
+          <h2>📍 Rosario</h2>
+          <p>Último: <b>${d.rosario.ultimo}</b></p>
+          <p>Próximo: <b style="color:#22c55e;">${d.rosario.siguiente}</b></p>
+        </div>
+
+        <!-- BUENOS AIRES -->
+        <div style="background:#1e293b; padding:20px; border-radius:12px;">
+          <h2>📍 Buenos Aires</h2>
+          <p>Último: <b>${d.buenos_aires.ultimo}</b></p>
+          <p>Próximo: <b style="color:#22c55e;">${d.buenos_aires.siguiente}</b></p>
+        </div>
+
+      </div>
+
+      <div style="margin-top:30px; font-size:12px; opacity:0.6;">
+        Última actualización: ${d.updated}
+      </div>
+
+    `;
+  });
+}
+
+// carga inicial
+loadData();
+
+// refresco automático cada 60s
+setInterval(loadData, 60000);
 </script>
 
 </body>
