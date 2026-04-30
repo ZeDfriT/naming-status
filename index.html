@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Service Desk Naming</title>
+</head>
+
+<body style="font-family: Arial; background:#0f172a; color:#e2e8f0; padding:40px;">
+
+<h1>🖥️ Naming Service</h1>
+
+<div id="content">Cargando datos...</div>
+
+<script>
+fetch("https://raw.githubusercontent.com/ZeDfriT/naming-status/main/status.json")
+.then(r => r.json())
+.then(d => {
+  document.getElementById("content").innerHTML = `
+    <div style="margin-top:20px;">
+      <h2>📍 Rosario</h2>
+      <p>Último: <b>${d.rosario.ultimo}</b></p>
+      <p>Próximo: <b>${d.rosario.siguiente}</b></p>
+    </div>
+
+    <div style="margin-top:20px;">
+      <h2>📍 Buenos Aires</h2>
+      <p>Último: <b>${d.buenos_aires.ultimo}</b></p>
+      <p>Próximo: <b>${d.buenos_aires.siguiente}</b></p>
+    </div>
+
+    <div style="margin-top:40px; font-size:12px; opacity:0.6;">
+      Última actualización: ${d.updated}
+    </div>
+  `;
+});
+</script>
+
+</body>
+</html>
